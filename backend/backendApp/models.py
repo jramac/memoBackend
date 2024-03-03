@@ -6,7 +6,7 @@ class Name(models.Model):
         return f"{self.nadimak}"
 
 class Score(models.Model):
-    name = models.ForeignKey(Name, on_delete=models.CASCADE,unique = True)
+    name = models.ForeignKey(Name, on_delete=models.CASCADE)
     score_value = models.IntegerField()
 
     def __str__(self):

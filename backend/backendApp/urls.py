@@ -1,11 +1,13 @@
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import NameViewSet, ScoreViewSet
-
-router = DefaultRouter()
-router.register('names', NameViewSet)
-router.register('scores', ScoreViewSet)
+from . import views
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('scores/',views.scoreList, name="score-list"),
+    path('names/',views.nameList, name="name-list"),
+    path('score-create/',views.scoreCreate, name="score-create"),
+    path('score-update/<str:pk>/',views.scoreUpdate, name="score-update"),
+    path('score-delete/<str:pk>/',views.scoreDelete, name="score-delete"),
+    path('name-create/',views.nameCreate, name="name-create"),
+    path('name-update/<str:pk>/',views.nameUpdate, name="name-update"),
+    path('name-delete/<str:pk>/',views.nameDelete, name="name-delete"),
 ]
