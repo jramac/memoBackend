@@ -5,6 +5,7 @@ from rest_framework import viewsets
 from .models import Name, Score
 from .serializers import NameSerializer, ScoreSerializer
 
+#---------------------NAME API----------------------------#
 @api_view(['GET'])
 def nameList(request):
     names = Name.objects.all()
@@ -39,19 +40,26 @@ def nameDelete(request,pk):
     name.delete()
     return Response(200)
 
+#---------------------SCORE API----------------------------#
 @api_view(['GET'])
 def scoreList(request):
-    scores = Score.objects.all()
+    scores = Score.objects.all().order_by('-score_value')
+    serializer = ScoreSerializer(scores, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def scoreListCut(request,num):
+    scores = Score.objects.all().order_by('-score_value')[:num]
     serializer = ScoreSerializer(scores, many=True)
     return Response(serializer.data)
 
 @api_view(['POST'])
 def scoreCreate(request):
     serializer = ScoreSerializer(data = request.data)
-
+    print(request.data)
     if serializer.is_valid():
         serializer.save()
-        
+
     return Response(serializer.data)
 
 @api_view(['POST'])
