@@ -43,7 +43,7 @@ def nameDelete(request,pk):
 #---------------------SCORE API----------------------------#
 @api_view(['GET'])
 def scoreList(request):
-    scores = Score.objects.all().order_by('-score_value')
+    scores = Score.objects.all().order_by('score_value')
     serializer = ScoreSerializer(scores, many=True)
     return Response(serializer.data)
 
